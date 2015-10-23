@@ -1,0 +1,5 @@
+        .global start
+        .begin start
+        mov %rsp, %rdi
+        callq _dryad_init
+        retq
