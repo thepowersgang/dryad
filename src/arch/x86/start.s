@@ -4,4 +4,5 @@
 _start:
         mov %rsp, %rdi
         callq _dryad_init
+        jmpq *%rax
         retq
