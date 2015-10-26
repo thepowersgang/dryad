@@ -11,9 +11,11 @@
 //extern crate core;
 
 mod auxv;
+mod kernel_block;
+mod utils;
 
-use core::str;
-//use core::slice;
+use kernel_block::KernelBlock;
+use utils::*;
 
 //extern "C"
 //void __attribute__((noinline)) __attribute__((visibility("default"))) 
@@ -25,173 +27,6 @@ extern "C" {
 // the raw stack pointer as the argument to _dryad_init
 extern {
     fn _start();
-}
-
-#[no_mangle]
-pub extern fn _exit(code: u64) {
-    unsafe {
-        asm!("movq $$60, %rax
-              syscall"
-             :
-             : "{rdi}"(code)
-             );
-    }
-}
-
-// this is _totally_ broken and is massively sideeffectul and unpredicatable
-#[no_mangle]
-pub extern fn write(msg: &str) {
-    unsafe {
-        asm!("pushq %rdi
-              pushq %rax
-              pushq %rdx
-              pushq %rsi
-              movq $0, %rsi
-              movq $1, %rdx
-              movq $$1, %rax
-              movq $$1, %rdi
-              syscall
-              popq %rsi
-              popq %rdx
-              popq %rax
-              popq %rdi
-              "
-             :
-             : "{rsi}"(msg.as_ptr()), "{rdx}"(msg.len())
-             : "{rdi}","{rax}", "{rdx}", "{rsi}"
-//             :"{rsi}"(msg.as_ptr()), "{rdx}"(msg.len())
-             );
-    }
-}
-
-fn digit_to_char_code(i: u8) -> u8 {
-    if i <= 9 {
-        i + 48
-    }else{
-        0
-    }
-}
-
-fn num_digits(i: u64) -> usize {
-    let mut count = 0;
-    let mut current = i;
-    while current > 0 {
-        current /= 10;
-        count += 1;
-    }
-    count
-}
-
-// ditto side effects
-fn write_u64(i: u64){
-    let count = num_digits(i);
-    let mut _stack = [0; 20];
-    let mut chars = &mut _stack[0..count];
-    let mut place = count;
-    let mut current = i;
-    let mut digit;
-    loop {
-        digit = current % 10;
-        current = (current - digit) / 10;
-        place -= 1;
-        chars[place] = digit_to_char_code(digit as u8);
-        if current <= 0 { break; }
-    }
-    write(str::from_utf8(chars).unwrap());
-}
-
-struct KernelBlock {
-    argc: isize,
-    argv: *const *const u8,
-    envp: *const *const u8,
-    auxv: *const auxv::Elf64_auxv_t,
-//    entry: u64,
-//    name: &'static str,
-}
-
-impl KernelBlock {
-
-    fn getauxval(&self, t:auxv::AT) -> Option<u64> {
-        unsafe {
-        let ptr = self.auxv.clone();
-        let mut i = 1;
-        let mut v = &*ptr;
-        while v.a_type != auxv::AT::NULL {
-            if v.a_type == t {
-                return Some (v.a_val);
-            }
-            v = &*ptr.offset(i);
-            i += 1;
-        }
-        /*
-        m4b: ptr.iter().take_while(|x| x.some_field != SOME_DEFINE)
-        for (ElfW(auxv_t)* v = auxv; v->a_type != AT_NULL; ++v) {
-            if (v->a_type == type) {
-                if (found_match != NULL) {
-                    *found_match = true;
-                }
-                return v->a_un.a_val;
-            }
-        }
-             */
-        }
-        None
-    }
-    
-    fn new (args: *const u64) -> KernelBlock {        
-        unsafe {
-            let argc = (*args) as isize;
-            let argv = args.offset(1) as *const *const u8;
-            let envp = argv.offset(argc + 1);
-
-            let mut p = envp;
-            while !(*p).is_null() {
-                p = p.offset(1);
-            }
-            p = p.offset(1);
-            let auxv = p as *const auxv::Elf64_auxv_t;
-        /*
-        uintptr_t* args = reinterpret_cast<uintptr_t*>(raw_args);
-        argc = static_cast<int>(*args);
-        argv = reinterpret_cast<char**>(args + 1);
-        envp = argv + argc + 1;
-
-        // Skip over all environment variable definitions to find aux vector.
-        // The end of the environment block is marked by two NULL pointers.
-        char** p = envp;
-        while (*p != NULL) {
-            ++p;
-        }
-        ++p; // Skip second NULL;
-             */
-            KernelBlock{
-                argc:argc,
-                argv:argv,
-                envp: envp,
-                auxv: auxv,
-            }
-        }
-    }
-
-    fn print (&self) -> () {
-        /*
-        write(&"name: ");
-        write(&self.name);
-        write(&"\n");
-        write(&"entry: ");
-        write_u64(self.entry);
-        write(&"\n");
-         */
-        write(&"argc: ");
-        write_u64(self.argc as u64);
-        write(&"\n");
-        /*
-        write(&"argv: ");
-        write(self.argv);
-        write(&"\n");
-         */
-
-    }
 }
 
 #[no_mangle]
