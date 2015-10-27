@@ -12,9 +12,11 @@ mod auxv;
 mod kernel_block;
 mod utils;
 mod image;
+mod binary;
 
 use kernel_block::KernelBlock;
 use utils::*;
+use binary::elf::Header;
 
 //extern "C"
 //void __attribute__((noinline)) __attribute__((visibility("default")))
@@ -32,26 +34,41 @@ extern {
 
 #[no_mangle]
 pub extern fn _dryad_init(raw_args: *const u64) -> u64 {
-    write(&"dryad::_dryad_init\n");
-    let block = KernelBlock::new(raw_args);
-    unsafe { block.debug_print();}
+    unsafe { write(&"dryad::_dryad_init\n"); }
 
-    // commenting _exit will successfully
-    // tranfer control (in my single test case ;))
-    // to the program entry in test/test,
-    // but segfaults when printf is called (obviously)
+    let block = KernelBlock::new(raw_args);
+    unsafe { block.debug_print(); }
+
     let image = image::Elf::new(block);
-    unsafe { image.debug_print();}
-    /*
-    let entry = block.getauxval(auxv::AT::ENTRY).unwrap();
-    let base = block.getauxval(auxv::AT::BASE).unwrap();
-    write(&"entry: ");
-    write_u64(entry);
-    write(&"\n");
-    write(&"base: ");
-    write_u64(base);
-    write(&"\n");
-    */
-    _exit(0);
-    image.entry
+    unsafe { image.debug_print(); }
+
+    // such unsafeties
+    unsafe {
+        //<aatch> m4b, rather than trying to re-write C++ code,
+        // figure out what the code is actually doing,
+        // then do *that* in Rust.
+        let elf_header:&binary::elf::Header = core::mem::transmute(image.base as *const u64);
+        write(&"e_phoff: ");
+        write_u64(elf_header.e_phoff);
+        write(&"\n");
+    }
+
+    // because it's _tradition_
+    // (https://fossies.org/dox/glibc-2.22/rtld_8c_source.html)
+    // line 786:
+    // > Ho ho.  We are not the program interpreter!  We are the program itself! 
+    if _start as *const u64 as u64 == image.entry {
+        unsafe { write(&"-=|dryad====-\n"); }
+        _exit(0);
+        0
+    } else {
+        // commenting _exit will successfully
+        // tranfer control (in my single test case ;))
+        // to the program entry in test/test,
+        // but segfaults when printf is called (obviously)
+        // since we've done no dynamic linking
+
+        _exit(0);
+        image.entry
+    }
 }

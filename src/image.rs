@@ -15,7 +15,7 @@ macro_rules! init {
 
 // TODO: move this to a separate elf mod, like collections, as per @Gankro?
 pub struct Elf {
-    pub base: u64, // future: *const elf_hdr
+    pub base: u64, // future: *const ElfHeader
     pub phdr: *const u64, // future: *const elf_phdr
     pub phent: u64, // sizeof an elf program header entry
     pub phnum: u64,

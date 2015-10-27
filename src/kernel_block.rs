@@ -1,6 +1,7 @@
 use auxv;
 use utils::*;
 
+#[repr(C)]
 pub struct KernelBlock {
     pub argc: isize,
     pub argv: *const *const u8,

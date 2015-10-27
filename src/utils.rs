@@ -20,10 +20,8 @@ extern {
 }
 
 #[no_mangle]
-pub extern fn write(msg: &str){
-    unsafe {
-        _print(msg.as_ptr(), msg.len() as u64);
-    }
+pub unsafe extern fn write(msg: &str){
+    _print(msg.as_ptr(), msg.len() as u64);
 }
 
 /*
@@ -71,7 +69,7 @@ fn num_digits(i: u64) -> usize {
 }
 
 #[no_mangle]
-pub extern fn write_u64(i: u64) {
+pub unsafe extern fn write_u64(i: u64) {
     let count = num_digits(i);
     let mut _stack = [0; 20];
     let mut chars = &mut _stack[0..count];
@@ -105,7 +103,7 @@ fn to_str<'a>(cs: *const u8) -> &'a str {
     }
 }
 
-pub extern fn write_chars(cs: *const u8) {
+pub unsafe extern fn write_chars(cs: *const u8) {
     write(to_str(cs));
 }
 
