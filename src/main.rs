@@ -7,8 +7,6 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
 
-//extern crate core;
-
 mod llvm_symbols;
 mod auxv;
 mod kernel_block;
@@ -18,7 +16,9 @@ use kernel_block::KernelBlock;
 use utils::*;
 
 //extern "C"
-//void __attribute__((noinline)) __attribute__((visibility("default"))) 
+//void __attribute__((noinline)) __attribute__((visibility("default")))
+
+// unused; someone figure out how to get gdb working when running as a dyld
 extern "C" {
     fn rtld_db_dlactivity();
 }
@@ -30,19 +30,23 @@ extern {
 }
 
 #[no_mangle]
-pub extern fn _dryad_init(raw_args: *const u64) {
-    write("dryad::_dryad_init\n");
+pub extern fn _dryad_init(raw_args: *const u64) -> u64 {
+    write(&"dryad::_dryad_init\n");
     let block = KernelBlock::new(raw_args);
-    block.print();
-    if let Some(entry) = block.getauxval(auxv::AT::ENTRY) {
-        write(&"entry: ");
-        write_u64(entry);
-        write(&"\n");
-    }
-    _exit(0)
-        // this will successfully tranfer control
-        // to the program entry in test/test,
-        // but segfaults when printf is called (obviously)
-//    0x400270
+    unsafe { block.debug_print();}
 
+    // commenting _exit will successfully tranfer control
+    // to the program entry in test/test,
+    // but segfaults when printf is called (obviously)
+    let entry = block.getauxval(auxv::AT::ENTRY).unwrap();
+    let base = block.getauxval(auxv::AT::BASE).unwrap();
+    write(&"entry: ");
+    write_u64(entry);
+    write(&"\n");
+    write(&"base: ");
+    write_u64(base);
+    write(&"\n");
+
+    _exit(0);
+    entry
 }

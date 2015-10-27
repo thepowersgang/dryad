@@ -1,6 +1,7 @@
 #![allow(private_no_mangle_fns)]
 
 use core::str;
+use core::slice;
 
 #[no_mangle]
 pub extern fn _exit(code: u64) {
@@ -13,6 +14,19 @@ pub extern fn _exit(code: u64) {
     }
 }
 
+// this comes from asm.s
+extern {
+    fn _print(msg: *const u8, len: u64);
+}
+
+#[no_mangle]
+pub extern fn write(msg: &str){
+    unsafe {
+        _print(msg.as_ptr(), msg.len() as u64);
+    }
+}
+
+/*
 // this is _totally_ broken and is massively sideeffectul and unpredicatable
 #[no_mangle]
 pub extern fn write(msg: &str) {
@@ -21,8 +35,6 @@ pub extern fn write(msg: &str) {
               pushq %rax
               pushq %rdx
               pushq %rsi
-              movq $0, %rsi
-              movq $1, %rdx
               movq $$1, %rax
               movq $$1, %rdi
               syscall
@@ -33,12 +45,13 @@ pub extern fn write(msg: &str) {
               "
              :
              : "{rsi}"(msg.as_ptr()), "{rdx}"(msg.len())
-             : "{rdi}","{rax}", "{rdx}", "{rsi}"
-//             :"{rsi}"(msg.as_ptr()), "{rdx}"(msg.len())
+//             : "{rdi}","{rax}", "{rdx}", "{rsi}"
+             //             :"{rsi}"(msg.as_ptr()), "{rdx}"(msg.len())
+             //
              );
     }
 }
-
+*/
 fn digit_to_char_code(i: u8) -> u8 {
     if i <= 9 {
         i + 48
@@ -57,9 +70,8 @@ fn num_digits(i: u64) -> usize {
     count
 }
 
-// ditto side effects
 #[no_mangle]
-pub extern fn write_u64(i: u64){
+pub extern fn write_u64(i: u64) {
     let count = num_digits(i);
     let mut _stack = [0; 20];
     let mut chars = &mut _stack[0..count];
@@ -75,3 +87,25 @@ pub extern fn write_u64(i: u64){
     }
     write(str::from_utf8(chars).unwrap());
 }
+
+fn to_str<'a>(cs: *const u8) -> &'a str {
+    if cs.is_null() {
+        ""
+    }else {
+        unsafe {
+            let mut i = 0;
+            let mut c = *cs;
+            while c != 0 {
+                i += 1;
+                c = *cs.offset(i);
+            }
+            let slice = slice::from_raw_parts(cs, i as usize);
+            str::from_utf8(slice).unwrap()
+        }
+    }
+}
+
+pub extern fn write_chars(cs: *const u8) {
+    write(to_str(cs));
+}
+

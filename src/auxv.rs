@@ -6,6 +6,7 @@
 #![allow(unused_variables)]
 
 #[derive(PartialEq)]
+#[repr(C)]
 pub enum AT {
     NULL,
     IGNORE,
@@ -84,25 +85,11 @@ pub fn u64_to_at (t: u64) -> AT {
     }
 }
 
+#[repr(C)]
 pub struct Elf64_auxv_t {
-    pub a_type: AT,
+    pub a_type: u64, // AT as type doesn't work, kernel_block::getauxv returns a_type instead of a_val somehow; c repr doesn't help
     pub a_val: u64
 }
-
-/*
-impl core::iter::Iterator for const * Elf64_auxv_t {
-    fn next(&self) -> Option {
-        unsafe {
-            let auxv_t:Elf64_auxv_t = *self;
-            if auxv_t.a_type == AT::NULL {
-                None
-            }else {
-                Some(auxv_t)
-            }
-        }
-    }
-}
-*/
 
 /*
         NULL		0

@@ -10,21 +10,22 @@ pub struct KernelBlock {
 
 impl KernelBlock {
 
-    pub fn getauxval(&self, t:auxv::AT) -> Option<u64> {
+    pub fn getauxval(&self, t:auxv::AT) -> Result<u64, ()> {
         unsafe {
-        let ptr = self.auxv.clone();
-        let mut i = 1;
-        let mut v = &*ptr;
-        while v.a_type != auxv::AT::NULL {
-            if v.a_type == t {
-                return Some (v.a_val);
-            }
-            v = &*ptr.offset(i);
-            i += 1;
-        }        
-        //m4b: ptr.iter().take_while(|x| x.some_field != SOME_DEFINE)
+            let ptr = self.auxv.clone();
+            let mut i = 1;
+            let mut v = &*ptr;
+            //            while v.a_type != auxv::AT::NULL {
+            while v.a_type != 0 {
+                if auxv::u64_to_at(v.a_type) == t {
+                    return Ok (v.a_val);
+                }
+                v = &*ptr.offset(i);
+                i += 1;
+            }        
+            //Mustabah: ptr.iter().take_while(|x| x.some_field != SOME_DEFINE)
         }
-        None
+        Err(())
     }
     
     pub fn new (args: *const u64) -> KernelBlock {        
@@ -50,17 +51,13 @@ impl KernelBlock {
         }
     }
 
-    pub fn print (&self) -> () {
+    pub unsafe fn debug_print (&self) -> () {
 
         write(&"argc: ");
         write_u64(self.argc as u64);
         write(&"\n");
-
-        /*
-        write(&"argv: ");
-        write(self.argv);
+        write(&"argv[0]: ");
+        write_chars(*self.argv);
         write(&"\n");
-         */
-
     }
 }
