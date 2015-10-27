@@ -43,8 +43,8 @@ impl KernelBlock {
             p = p.offset(1);
             let auxv = p as *const auxv::Elf64_auxv_t;
             KernelBlock{
-                argc:argc,
-                argv:argv,
+                argc: argc,
+                argv: argv,
                 envp: envp,
                 auxv: auxv,
             }

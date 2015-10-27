@@ -11,6 +11,7 @@ mod llvm_symbols;
 mod auxv;
 mod kernel_block;
 mod utils;
+mod image;
 
 use kernel_block::KernelBlock;
 use utils::*;
@@ -35,9 +36,13 @@ pub extern fn _dryad_init(raw_args: *const u64) -> u64 {
     let block = KernelBlock::new(raw_args);
     unsafe { block.debug_print();}
 
-    // commenting _exit will successfully tranfer control
+    // commenting _exit will successfully
+    // tranfer control (in my single test case ;))
     // to the program entry in test/test,
     // but segfaults when printf is called (obviously)
+    let image = image::Elf::new(block);
+    unsafe { image.debug_print();}
+    /*
     let entry = block.getauxval(auxv::AT::ENTRY).unwrap();
     let base = block.getauxval(auxv::AT::BASE).unwrap();
     write(&"entry: ");
@@ -46,7 +51,7 @@ pub extern fn _dryad_init(raw_args: *const u64) -> u64 {
     write(&"base: ");
     write_u64(base);
     write(&"\n");
-
+    */
     _exit(0);
-    entry
+    image.entry
 }
