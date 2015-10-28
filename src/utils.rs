@@ -69,41 +69,76 @@ fn num_digits(i: u64) -> usize {
 }
 
 #[no_mangle]
-pub unsafe extern fn write_u64(i: u64) {
-    let count = num_digits(i);
-    let mut _stack = [0; 20];
-    let mut chars = &mut _stack[0..count];
-    let mut place = count;
-    let mut current = i;
-    let mut digit;
-    loop {
-        digit = current % 10;
-        current = (current - digit) / 10;
-        place -= 1;
-        chars[place] = digit_to_char_code(digit as u8);
-        if current <= 0 { break; }
+pub unsafe extern fn write_u64(i: u64, base16: bool) {
+    if base16 {
+        write(to_hex(&i, &mut [0; 16]));
+    } else {
+        let count = num_digits(i);
+        let mut _stack = [0; 20];
+        let mut chars = &mut _stack[0..count];
+        let mut place = count;
+        let mut current = i;
+        let mut digit;
+        loop {
+            digit = current % 10;
+            current = (current - digit) / 10;
+            place -= 1;
+            chars[place] = digit_to_char_code(digit as u8);
+            if current <= 0 { break; }
+        }
+        write(str::from_utf8(chars).unwrap());
     }
-    write(str::from_utf8(chars).unwrap());
 }
 
-fn to_str<'a>(cs: *const u8) -> &'a str {
+fn to_hex<'a>(i: &u64, output: &'a mut[u8; 16]) -> &'a str {
+    let mut input = *i;
+    let hex = b"0123456789abcdef";
+    let mut buffer = [0; 16];
+    let mut i = 0;
+    let mut j = 0;
+    if input == 0 {
+        buffer[0] = hex[0];
+        i = 1;
+    } else {
+        while input > 0 {
+            buffer[i] = hex[(input % 16) as usize];
+            input = input / 16;
+            i += 1;
+        }
+    }
+
+    while i > 0 {
+        i -= 1;
+        output[j] = buffer[i];
+        j += 1;
+    }
+
+    str::from_utf8(output).unwrap().trim_matches('\0')
+}
+
+fn to_str<'a>(cs: *const u8, idx: isize) -> (&'a str, isize) {
     if cs.is_null() {
-        ""
+        ("",0)
     }else {
         unsafe {
-            let mut i = 0;
+            let mut i = idx;
             let mut c = *cs;
             while c != 0 {
                 i += 1;
                 c = *cs.offset(i);
             }
             let slice = slice::from_raw_parts(cs, i as usize);
-            str::from_utf8(slice).unwrap()
+            (str::from_utf8(slice).unwrap(),i)
         }
     }
 }
 
-pub unsafe extern fn write_chars(cs: *const u8) {
-    write(to_str(cs));
+pub fn str_at<'a>(cs: *const u8, idx: isize) -> &'a str {
+    let (s,_) = to_str(cs, idx);
+    s
+}
+
+pub unsafe extern fn write_chars_at(cs: *const u8, idx: isize) {
+    write(str_at(cs,idx));
 }
 

@@ -29,7 +29,7 @@ pub struct Elf {
 }
 
 impl Elf {
-    pub fn new (block: kernel_block::KernelBlock) -> Elf {
+    pub fn new (block: &kernel_block::KernelBlock) -> Elf {
         // base is also = elf_hdr
         let base   = block.getauxval(auxv::AT::BASE).unwrap();
         let phdr   = block.getauxval(auxv::AT::PHDR).unwrap() as *const u64;
@@ -45,20 +45,20 @@ impl Elf {
         }
     }
     pub unsafe fn debug_print (&self) {
-        write(&"base: ");
-        write_u64(self.base);
+        write(&"base: 0x");
+        write_u64(self.base, true);
         write(&"\n");
-        write(&"phdr: ");
-        write_u64(self.phdr as u64);
+        write(&"phdr: 0x");
+        write_u64(self.phdr as u64, true);
         write(&"\n");
         write(&"phent: ");
-        write_u64(self.phent);
+        write_u64(self.phent, false);
         write(&"\n");
         write(&"phnum: ");
-        write_u64(self.phnum);
+        write_u64(self.phnum, false);
         write(&"\n");
-        write(&"entry: ");
-        write_u64(self.entry);
+        write(&"entry: 0x");
+        write_u64(self.entry, true);
         write(&"\n");
     }
 }

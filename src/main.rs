@@ -16,7 +16,7 @@ mod binary;
 
 use kernel_block::KernelBlock;
 use utils::*;
-use binary::elf::Header;
+use binary::elf::header::Header;
 
 //extern "C"
 //void __attribute__((noinline)) __attribute__((visibility("default")))
@@ -39,25 +39,34 @@ pub extern fn _dryad_init(raw_args: *const u64) -> u64 {
     let block = KernelBlock::new(raw_args);
     unsafe { block.debug_print(); }
 
-    let image = image::Elf::new(block);
-    unsafe { image.debug_print(); }
+    let linker_image = image::Elf::new(&block);
+    unsafe { linker_image.debug_print(); }
 
     // such unsafeties
     unsafe {
         //<aatch> m4b, rather than trying to re-write C++ code,
         // figure out what the code is actually doing,
         // then do *that* in Rust.
-        let elf_header:&binary::elf::Header = core::mem::transmute(image.base as *const u64);
-        write(&"e_phoff: ");
-        write_u64(elf_header.e_phoff);
-        write(&"\n");
+        // this is the linker's elf_header and program_header[0]
+        let elf_header:&binary::elf::header::Header = core::mem::transmute(linker_image.base as *const u64);
+        elf_header.debug_print();
+        let program_header:&binary::elf::program_header::ProgramHeader = core::mem::transmute((linker_image.base + elf_header.e_phoff) as *const u64);
+        program_header.debug_print();
     }
 
-    // because it's _tradition_
-    // (https://fossies.org/dox/glibc-2.22/rtld_8c_source.html)
-    // line 786:
-    // > Ho ho.  We are not the program interpreter!  We are the program itself! 
-    if _start as *const u64 as u64 == image.entry {
+    // TODO: refactor and remove, for testing
+    unsafe {
+//        let phdr = block.getauxval(auxv::AT::PHDR).unwrap();
+        let main_phdr:&binary::elf::program_header::ProgramHeader =
+            core::mem::transmute(linker_image.phdr);
+        main_phdr.debug_print();
+    }
+
+    if _start as *const u64 as u64 == linker_image.entry {
+        // because it's _tradition_
+        // (https://fossies.org/dox/glibc-2.22/rtld_8c_source.html)
+        // line 786:
+        // > Ho ho.  We are not the program interpreter!  We are the program itself! 
         unsafe { write(&"-=|dryad====-\n"); }
         _exit(0);
         0
@@ -67,8 +76,7 @@ pub extern fn _dryad_init(raw_args: *const u64) -> u64 {
         // to the program entry in test/test,
         // but segfaults when printf is called (obviously)
         // since we've done no dynamic linking
-
         _exit(0);
-        image.entry
+        linker_image.entry
     }
 }

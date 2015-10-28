@@ -5,6 +5,7 @@ use utils::*;
 pub struct KernelBlock {
     pub argc: isize,
     pub argv: *const *const u8,
+    pub envc: isize,
     pub envp: *const *const u8,
     pub auxv: *const auxv::Elf64_auxv_t,
 }
@@ -36,16 +37,19 @@ impl KernelBlock {
             let envp = argv.offset(argc + 1);
 
             let mut p = envp;
+            let mut envc = 1;
             // two null pointers mark end of envp
             // and beginning of the auxillary vectors
             while !(*p).is_null() {
                 p = p.offset(1);
+                envc += 1;
             }
             p = p.offset(1);
             let auxv = p as *const auxv::Elf64_auxv_t;
             KernelBlock{
                 argc: argc,
                 argv: argv,
+                envc: envc,
                 envp: envp,
                 auxv: auxv,
             }
@@ -55,10 +59,13 @@ impl KernelBlock {
     pub unsafe fn debug_print (&self) -> () {
 
         write(&"argc: ");
-        write_u64(self.argc as u64);
+        write_u64(self.argc as u64, false);
         write(&"\n");
         write(&"argv[0]: ");
-        write_chars(*self.argv);
+        write_chars_at(*self.argv, 0);
+        write(&"\n");
+        write(&"envc: ");
+        write_u64(self.envc as u64, false);
         write(&"\n");
     }
 }
