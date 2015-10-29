@@ -16,7 +16,7 @@ macro_rules! init {
 // TODO: move this to a separate elf mod, like collections, as per @Gankro?
 pub struct Elf {
     pub base: u64, // future: *const ElfHeader
-    pub phdr: *const u64, // future: *const elf_phdr
+    pub phdr: u64, // future: *const elf_phdr
     pub phent: u64, // sizeof an elf program header entry
     pub phnum: u64,
     pub entry: u64,
@@ -32,7 +32,7 @@ impl Elf {
     pub fn new (block: &kernel_block::KernelBlock) -> Elf {
         // base is also = elf_hdr
         let base   = block.getauxval(auxv::AT::BASE).unwrap();
-        let phdr   = block.getauxval(auxv::AT::PHDR).unwrap() as *const u64;
+        let phdr   = block.getauxval(auxv::AT::PHDR).unwrap();
         let phent  = block.getauxval(auxv::AT::PHENT).unwrap();
         let phnum  = block.getauxval(auxv::AT::PHNUM).unwrap();
         let entry  = block.getauxval(auxv::AT::ENTRY).unwrap();

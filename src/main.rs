@@ -16,7 +16,9 @@ mod binary;
 
 use kernel_block::KernelBlock;
 use utils::*;
-use binary::elf::header::Header;
+use binary::elf::header;
+use binary::elf::dyn;
+use binary::elf::program_header;
 
 //extern "C"
 //void __attribute__((noinline)) __attribute__((visibility("default")))
@@ -44,25 +46,33 @@ pub extern fn _dryad_init(raw_args: *const u64) -> u64 {
 
     // such unsafeties
     unsafe {
-        //<aatch> m4b, rather than trying to re-write C++ code,
-        // figure out what the code is actually doing,
-        // then do *that* in Rust.
         // this is the linker's elf_header and program_header[0]
-        let elf_header:&binary::elf::header::Header = core::mem::transmute(linker_image.base as *const u64);
+        // TODO: do header::to_header
+        let elf_header:&header::Header = core::mem::transmute(linker_image.base as *const u64);
+        write(&"LINKER ELF\n");
         elf_header.debug_print();
-        let program_header:&binary::elf::program_header::ProgramHeader = core::mem::transmute((linker_image.base + elf_header.e_phoff) as *const u64);
-        program_header.debug_print();
+        let addr = (linker_image.base + elf_header.e_phoff) as *const program_header::ProgramHeader;
+        let linker_phdrs = program_header::to_phdr_array(addr, elf_header.e_phnum as usize);
+        write(&"LINKER PHDRS\n");
+        program_header::debug_print_phdrs(linker_phdrs);
     }
 
     // TODO: refactor and remove, for testing
     unsafe {
-//        let phdr = block.getauxval(auxv::AT::PHDR).unwrap();
-        let main_phdr:&binary::elf::program_header::ProgramHeader =
-            core::mem::transmute(linker_image.phdr);
-        main_phdr.debug_print();
+        let addr = linker_image.phdr as *const program_header::ProgramHeader;
+        let phdrs = program_header::to_phdr_array(addr, linker_image.phnum as usize);
+        if let Some(dynamic) = dyn::get_dynamic_array(phdrs) {
+            write(&"EXE _DYNAMIC\n");
+            dyn::debug_print_dynamic(dynamic);
+        } else {
+            write(&"<dryad> NO DYNAMIC for ");
+            // TODO: add proper name value via slice
+            write_chars_at(*block.argv, 0);
+            write(&"\n");
+        }
     }
 
-    if _start as *const u64 as u64 == linker_image.entry {
+        if _start as *const u64 as u64 == linker_image.entry {
         // because it's _tradition_
         // (https://fossies.org/dox/glibc-2.22/rtld_8c_source.html)
         // line 786:

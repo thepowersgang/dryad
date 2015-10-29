@@ -1,9 +1,10 @@
+use core::slice;
 use utils::*;
 
 #[repr(C)]
 pub struct ProgramHeader {
-    pub p_type: u64,
-    pub p_flags: u64,
+    pub p_type: u32,
+    pub p_flags: u32,
     pub p_offset: u64,
     pub p_vaddr: u64,
     pub p_paddr: u64,
@@ -39,6 +40,18 @@ impl ProgramHeader {
         write(&"p_align: ");
         write_u64(self.p_align as u64, false);
         write(&"\n");
-        
+    }
+    pub fn size_of(&self) -> u64 {
+        64
+    }
+}
+
+pub unsafe fn to_phdr_array<'a>(phdrp: *const ProgramHeader, phnum: usize) -> &'a[ProgramHeader] {
+    slice::from_raw_parts(phdrp, phnum)
+}
+
+pub unsafe fn debug_print_phdrs (phdrs: &[ProgramHeader]) {
+    for phdr in phdrs {
+        phdr.debug_print();
     }
 }

@@ -1,6 +1,7 @@
 use auxv;
 use utils::*;
 
+//TODO: change *const to slices, esp. argv and envc
 #[repr(C)]
 pub struct KernelBlock {
     pub argc: isize,
