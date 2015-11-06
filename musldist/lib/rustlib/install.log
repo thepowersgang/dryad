@@ -1,0 +1,164 @@
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib/rustlib"
+$ echo "3" > "/home/m4b/projects/rust/static/musldist/lib/rustlib/rust-installer-version"
+install: creating uninstall script at /home/m4b/projects/rust/static/musldist/lib/rustlib/uninstall.sh
+$ cp /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/install.sh /home/m4b/projects/rust/static/musldist/lib/rustlib/uninstall.sh
+install: installing component 'rustc'
+$ echo "rustc" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/components"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/bin"
+install: copying file /home/m4b/projects/rust/static/musldist/bin/rust-gdb
+$ install -m755 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/bin/rust-gdb /home/m4b/projects/rust/static/musldist/bin/rust-gdb
+$ echo "file:/home/m4b/projects/rust/static/musldist/bin/rust-gdb" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/bin"
+install: copying file /home/m4b/projects/rust/static/musldist/bin/rustc
+$ install -m755 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/bin/rustc /home/m4b/projects/rust/static/musldist/bin/rustc
+$ echo "file:/home/m4b/projects/rust/static/musldist/bin/rustc" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/bin"
+install: copying file /home/m4b/projects/rust/static/musldist/bin/rustdoc
+$ install -m755 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/bin/rustdoc /home/m4b/projects/rust/static/musldist/bin/rustdoc
+$ echo "file:/home/m4b/projects/rust/static/musldist/bin/rustdoc" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/libarena-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/libarena-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/libarena-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/libarena-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/libflate-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/libflate-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/libflate-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/libflate-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/libfmt_macros-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/libfmt_macros-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/libfmt_macros-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/libfmt_macros-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/libgetopts-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/libgetopts-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/libgetopts-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/libgetopts-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/libgraphviz-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/libgraphviz-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/libgraphviz-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/libgraphviz-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/liblog-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/liblog-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/liblog-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/liblog-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librbml-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librbml-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librbml-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librbml-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc_back-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc_back-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc_back-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc_back-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc_borrowck-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc_borrowck-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc_borrowck-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc_borrowck-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc_data_structures-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc_data_structures-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc_data_structures-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc_data_structures-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc_driver-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc_driver-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc_driver-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc_driver-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc_front-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc_front-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc_front-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc_front-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc_lint-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc_lint-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc_lint-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc_lint-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc_llvm-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc_llvm-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc_llvm-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc_llvm-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc_mir-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc_mir-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc_mir-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc_mir-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc_platform_intrinsics-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc_platform_intrinsics-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc_platform_intrinsics-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc_platform_intrinsics-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc_privacy-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc_privacy-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc_privacy-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc_privacy-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc_resolve-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc_resolve-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc_resolve-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc_resolve-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc_trans-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc_trans-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc_trans-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc_trans-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustc_typeck-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustc_typeck-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustc_typeck-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustc_typeck-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/librustdoc-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/librustdoc-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/librustdoc-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/librustdoc-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/libserialize-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/libserialize-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/libserialize-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/libserialize-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/libstd-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/libstd-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/libstd-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/libstd-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/libsyntax-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/libsyntax-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/libsyntax-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/libsyntax-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/libterm-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/libterm-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/libterm-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/libterm-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/libtest-71b07a99.so
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/libtest-71b07a99.so /home/m4b/projects/rust/static/musldist/lib/libtest-71b07a99.so
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/libtest-71b07a99.so" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib/rustlib/etc"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/rustlib/etc/debugger_pretty_printers_common.py
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/rustlib/etc/debugger_pretty_printers_common.py /home/m4b/projects/rust/static/musldist/lib/rustlib/etc/debugger_pretty_printers_common.py
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/rustlib/etc/debugger_pretty_printers_common.py" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib/rustlib/etc"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/rustlib/etc/gdb_load_rust_pretty_printers.py
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/rustlib/etc/gdb_load_rust_pretty_printers.py /home/m4b/projects/rust/static/musldist/lib/rustlib/etc/gdb_load_rust_pretty_printers.py
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/rustlib/etc/gdb_load_rust_pretty_printers.py" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/lib/rustlib/etc"
+install: copying file /home/m4b/projects/rust/static/musldist/lib/rustlib/etc/gdb_rust_pretty_printing.py
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/lib/rustlib/etc/gdb_rust_pretty_printing.py /home/m4b/projects/rust/static/musldist/lib/rustlib/etc/gdb_rust_pretty_printing.py
+$ echo "file:/home/m4b/projects/rust/static/musldist/lib/rustlib/etc/gdb_rust_pretty_printing.py" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/share/doc/rust"
+install: copying file /home/m4b/projects/rust/static/musldist/share/doc/rust/COPYRIGHT
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/share/doc/rust/COPYRIGHT /home/m4b/projects/rust/static/musldist/share/doc/rust/COPYRIGHT
+$ echo "file:/home/m4b/projects/rust/static/musldist/share/doc/rust/COPYRIGHT" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/share/doc/rust"
+install: copying file /home/m4b/projects/rust/static/musldist/share/doc/rust/LICENSE-APACHE
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/share/doc/rust/LICENSE-APACHE /home/m4b/projects/rust/static/musldist/share/doc/rust/LICENSE-APACHE
+$ echo "file:/home/m4b/projects/rust/static/musldist/share/doc/rust/LICENSE-APACHE" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/share/doc/rust"
+install: copying file /home/m4b/projects/rust/static/musldist/share/doc/rust/LICENSE-MIT
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/share/doc/rust/LICENSE-MIT /home/m4b/projects/rust/static/musldist/share/doc/rust/LICENSE-MIT
+$ echo "file:/home/m4b/projects/rust/static/musldist/share/doc/rust/LICENSE-MIT" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/share/doc/rust"
+install: copying file /home/m4b/projects/rust/static/musldist/share/doc/rust/README.md
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/share/doc/rust/README.md /home/m4b/projects/rust/static/musldist/share/doc/rust/README.md
+$ echo "file:/home/m4b/projects/rust/static/musldist/share/doc/rust/README.md" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/share/man/man1"
+install: copying file /home/m4b/projects/rust/static/musldist/share/man/man1/rustc.1
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/share/man/man1/rustc.1 /home/m4b/projects/rust/static/musldist/share/man/man1/rustc.1
+$ echo "file:/home/m4b/projects/rust/static/musldist/share/man/man1/rustc.1" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+$ umask 022 && mkdir -p "/home/m4b/projects/rust/static/musldist/share/man/man1"
+install: copying file /home/m4b/projects/rust/static/musldist/share/man/man1/rustdoc.1
+$ install -m644 /home/m4b/projects/rust/static/muslrust/tmp/dist/rustc-1.6.0-dev-x86_64-unknown-linux-gnu/rustc/share/man/man1/rustdoc.1 /home/m4b/projects/rust/static/musldist/share/man/man1/rustdoc.1
+$ echo "file:/home/m4b/projects/rust/static/musldist/share/man/man1/rustdoc.1" >> "/home/m4b/projects/rust/static/musldist/lib/rustlib/manifest-rustc"
+install: running ldconfig
+install: WARNING: failed to run ldconfig. this may happen when not installing as root. run with --verbose to see the error
