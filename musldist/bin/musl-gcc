@@ -1,2 +1,2 @@
 #!/bin/sh
-exec "${REALGCC:-gcc}" "$@" -specs "/home/m4b/projects/rust/static/musldist/lib/musl-gcc.specs"
+exec "${REALGCC:-gcc}" "$@" -specs "/home/m4b/musldist/musldist/lib/musl-gcc.specs"
